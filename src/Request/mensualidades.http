@@ -1,0 +1,31 @@
+#CONSULTAS DE LA TABLA MENSUALIDADES
+
+###
+POST http://localhost:3001/Mensualidad HTTP/1.1
+Content-Type: application/json
+
+{
+    "id_mensualidades": 1,
+    "id_cliente":1
+}
+
+###
+PUT http://localhost:3001/Mensualidad HTTP/1.1
+Content-Type: application/json
+
+{
+    "id_mensualidades": 1,
+    "id_cliente":1
+}
+
+###
+GET http://localhost:3001/Mensualidad HTTP/1.1
+Content-Type: application/json
+
+###
+GET http://localhost:3001/Mensualidad/1 HTTP/1.1
+Content-Type: application/json
+
+###
+DELETE http://localhost:3001/Mensualidad/1 HTTP/1.1
+Content-Type: application/json

@@ -1,0 +1,38 @@
+# CONSULTAS DE LA TABLA HISTORIAL
+
+###
+POST http://localhost:3001/Historial HTTP/1.1
+Content-Type: application/json
+
+{
+   "id_historial": 1,
+   "id_mensualidades": 1,
+   "id_cliente": 1,
+   "fechapago":"2023-12-6",
+   "estatus": "Pago"
+}
+
+###
+PUT http://localhost:3001/Historial HTTP/1.1
+Content-Type: application/json
+
+{
+   "id_historial": 1,
+   "id_mensualidades": 1,
+   "id_cliente": 1,
+   "fechapago":"2023-12-6",
+   "estatus": "Pago"
+}
+
+###
+GET http://localhost:3001/Historial HTTP/1.1
+Content-Type: application/json
+
+###
+GET http://localhost:3001/Historial/1 HTTP/1.1
+Content-Type: application/json
+
+###
+DELETE http://localhost:3001/Historial/1 HTTP/1.1
+Content-Type: application/json
+
