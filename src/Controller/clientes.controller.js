@@ -1,8 +1,11 @@
 import { Clientes } from '../Models/clientes.model.js';
+import { Mensualidades } from '../Models/mensualidades.model.js';
 
 export const conseguirClientes = async (req,res) =>{
     try{
-        const clientes = await Clientes.findAll()
+        const clientes = await Clientes.findAll({
+            include: [Mensualidades]
+        })
         res.status(200).json({
             ok:true,
             status:200,

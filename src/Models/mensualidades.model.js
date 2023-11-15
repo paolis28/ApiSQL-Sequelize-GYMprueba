@@ -14,8 +14,12 @@ export const Mensualidades = sequelize.define('Mensualidades', {
             key: 'id_cliente'
         }
     },
-    proximoPago: {
+    fechaPago: {
         type: DataTypes.DATE,
+        required: true
+    },
+    estatus:{
+        type:DataTypes.STRING,
         required: true
     }
 },
@@ -24,12 +28,12 @@ export const Mensualidades = sequelize.define('Mensualidades', {
 });
 
 // La que funcione
+//opción 1
+Mensualidades.hasOne(Clientes,{          
+    foreignKey:"id_cliente",
+    sourceKey:"id_cliente",
+});
+Mensualidades.belongsTo(Clientes, {foreinKey:"id_cliente", targetId: "id_cliente"});
 
-// Mensualidades.hasOne(Clientes,{          Opcion 1
-//     foreinkey:"id_cliente",
-//     sourceKey:"id_cliente",
-// });
-// Mensualidades.belongsTo(Clientes, {foreinkey:"id_cliente", targetId: "id_cliente"});
-
-
-// Mensualidades.hasOne(Clientes); Opcion 2
+//Opción 2
+// Mensualidades.hasOne(Clientes);
