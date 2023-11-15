@@ -1,4 +1,4 @@
-import {Clientes} from '../Models/clientes.model.js';
+import { Clientes } from '../Models/clientes.model.js';
 
 export const conseguirClientes = async (req,res) =>{
     try{
@@ -13,6 +13,7 @@ export const conseguirClientes = async (req,res) =>{
         console.log(error);
     }
 }
+
 export const conseguirUnicoCliente = async (req,res) =>{
     const id = req.params.id;
 

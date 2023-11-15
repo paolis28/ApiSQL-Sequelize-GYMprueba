@@ -7,7 +7,7 @@ async function main(){
         app.listen(3001)
         console.log("Server is listen on port", 3001)
     }catch(error){
-        consolo.log("Fallo la conexion a la base de datos", error)
+        console.log("Fallo la conexion a la base de datos", error)
     }
 }
 
