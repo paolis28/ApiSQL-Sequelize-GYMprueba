@@ -31,3 +31,5 @@ export const Clientes = sequelize.define('Clientes', {
     timestamps: false,
 
 });
+
+

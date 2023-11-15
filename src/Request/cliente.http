@@ -5,12 +5,12 @@ POST http://localhost:3001/clientes HTTP/1.1
 Content-Type: application/json
 
 {
-   "id_cliente": 1,
-   "nombre": "Paola",
-   "apellidoPaterno": "Mayorga",
-   "apellidoMaterno":"Aguirre",
-   "numeroCelular": "9612502403",
-   "fechaIncripcion": "2023-12-23"
+   "id_cliente": 2,
+   "nombre": "Luisin",
+   "apellidoPaterno": "Gutierrez",
+   "apellidoMaterno":"Aguilar",
+   "numeroCelular": "9612326589",
+   "fechaInscripcion": "2023-12-21"
 }
 
 ###
@@ -28,11 +28,9 @@ Content-Type: application/json
 
 ###
 GET http://localhost:3001/clientes HTTP/1.1
-Content-Type: application/json
 
 ###
 GET http://localhost:3001/clientes/1 HTTP/1.1
-Content-Type: application/json
 
 ###
 DELETE http://localhost:3001/clientes/1 HTTP/1.1

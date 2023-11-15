@@ -31,41 +31,55 @@ export const conseguirUnicoCliente = async (req,res) =>{
 }
 
 export const crearCliente = async (req, res) => {
-    const { id_cliente, nombre, apellidoPaterno, apellidoMaterno, numeroCelular, fechaIncripcion }=req.body;
+    const { id_cliente, nombre, apellidoPaterno, apellidoMaterno, numeroCelular, fechaInscripcion }=req.body;
     
     const permitido = /^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ\s]+$/;
 
-    if(!nombre || !apellidoPaterno || !apellidoMaterno || !numeroCelular || !fechaIncripcion){
-        return res.status(400).json({error:'Todos los campos son obligatorios'})
+    try{
+        if(!nombre || !apellidoPaterno || !apellidoMaterno || !numeroCelular || !fechaInscripcion){
+            return res.status(400).json({error:'Todos los campos son obligatorios'})
+        }
+    
+        if(!permitido.test(nombre)){
+            return res.status(400).json({error:"Nombre inválido, solo se aceptan acentos como caracteres especiales"})
+        }
+    
+        if(!permitido.test(apellidoPaterno)){
+            return res.status(400).json({error:"Apellido Paterno inválido, solo se aceptan acentos como caracteres especiales"})
+        }
+    
+        if(!permitido.test(apellidoMaterno)){
+            return res.status(400).json({error:"Apellido Materno inválido, solo se aceptan acentos como caracteres especiales"})
     }
-
-    if(!permitido.test(nombre)){
-        return res.status(400).json({error:"Nombre inválido, solo se aceptan acentos como caracteres especiales"})
+    const parsedFechaInscripcion = new Date(fechaInscripcion);
+    
+        const cliente = await Clientes.create({
+            id_cliente:id_cliente,
+            nombre: nombre,
+            apellidoPaterno: apellidoPaterno,
+            apellidoMaterno: apellidoMaterno,
+            numeroCelular: numeroCelular,
+            // fechaInscripcion: fechaInscripcion
+            fechaInscripcion: new Date(parsedFechaInscripcion).getTime()
+        });
+        const fechaFormateada = new Date(cliente.fechaInscripcion).toISOString().split('T')[0];
+        res.json({
+            id_cliente: cliente.id_cliente,
+            nombre: cliente.nombre,
+            apellidoPaterno: cliente.apellidoPaterno,
+            apellidoMaterno: cliente.apellidoMaterno,
+            numeroCelular: cliente.numeroCelular,
+            fechaInscripcion: fechaFormateada
+        });
+    }catch(error){
+        res.status(500).json({error: "Error al registrar cliente"});
+        console.log(error);
     }
-
-    if(!permitido.test(apellidoPaterno)){
-        return res.status(400).json({error:"Apellido Paterno inválido, solo se aceptan acentos como caracteres especiales"})
-    }
-
-    if(!permitido.test(apellidoMaterno)){
-        return res.status(400).json({error:"Apellido Materno inválido, solo se aceptan acentos como caracteres especiales"})
-}
-
-    const cliente = await Clientes.create({
-        id_cliente:id_cliente,
-        nombre: nombre,
-        apellidoPaterno: apellidoPaterno,
-        apellidoMaterno: apellidoMaterno,
-        numeroCelular: numeroCelular,
-        fechaIncripcion: fechaIncripcion
-        // fechaIncripcion: new Date(deliveryDate).getTime()
-    });
-    res.json(cliente)
 }
 
 
 export const modificarCliente= async(req,res)=>{
-    const {nombre,apellidoPaterno,apellidoMaterno,numeroCelular,fechaIncripcion}=req.body;
+    const {nombre,apellidoPaterno,apellidoMaterno,numeroCelular,fechaInscripcion}=req.body;
 
     try{
         const id=req.params.id;

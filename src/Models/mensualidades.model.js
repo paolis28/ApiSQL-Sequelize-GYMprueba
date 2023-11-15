@@ -22,3 +22,14 @@ export const Mensualidades = sequelize.define('Mensualidades', {
 {
     timestamps: false
 });
+
+// La que funcione
+
+// Mensualidades.hasOne(Clientes,{          Opcion 1
+//     foreinkey:"id_cliente",
+//     sourceKey:"id_cliente",
+// });
+// Mensualidades.belongsTo(Clientes, {foreinkey:"id_cliente", targetId: "id_cliente"});
+
+
+// Mensualidades.hasOne(Clientes); Opcion 2
