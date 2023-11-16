@@ -3,14 +3,9 @@ import { Mensualidades } from '../Models/mensualidades.model.js';
 
 export const conseguirClientes = async (req,res) =>{
     try{
-        const clientes = await Clientes.findAll({
-            include: [Mensualidades]
-        })
-        res.status(200).json({
-            ok:true,
-            status:200,
-            body:clientes
-        }) 
+        await Clientes.findAll()
+        .then((data)=>res.json(data))
+        .catch((error)=>res.json ({message:error}));
     }catch(error){
         res.status(500).json({error: "Error al buscar los clientes"});
         console.log(error);

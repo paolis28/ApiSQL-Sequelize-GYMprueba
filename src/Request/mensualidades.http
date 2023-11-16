@@ -1,7 +1,7 @@
 #CONSULTAS DE LA TABLA MENSUALIDADES
 
 ###
-POST http://localhost:3001/Mensualidad HTTP/1.1
+POST http://localhost:9000/gimnasio/mensualidades/registrar HTTP/1.1
 Content-Type: application/json
 
 {
@@ -10,7 +10,7 @@ Content-Type: application/json
 }
 
 ###
-PUT http://localhost:3001/Mensualidad HTTP/1.1
+PUT http://localhost:9000/gimnasio/mensualidades/modificar/1 HTTP/1.1
 Content-Type: application/json
 
 {
@@ -19,13 +19,19 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:3001/Mensualidad HTTP/1.1
+GET http://localhost:9000/gimnasio/mensualidades/obtenertodos HTTP/1.1
 Content-Type: application/json
 
 ###
-GET http://localhost:3001/Mensualidad/1 HTTP/1.1
+DELETE http://localhost:9000/gimnasio/mensualidades/eliminar/1 HTTP/1.1
 Content-Type: application/json
 
+//Prueba de consulta
 ###
-DELETE http://localhost:3001/Mensualidad/1 HTTP/1.1
+POST http://localhost:9000/gimnasio/mensualidades/buscar HTTP/1.1
 Content-Type: application/json
+
+{
+    "id": 1,
+    "fecha": "2023-11-15"
+}

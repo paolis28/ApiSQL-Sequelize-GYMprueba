@@ -2,10 +2,10 @@ import {Router} from 'express';
 import { conseguirClientes, conseguirUnicoCliente ,crearCliente,modificarCliente,eliminarCliente } from '../Controller/clientes.controller.js';
 const router=Router();
 
-router.get("/clientes",conseguirClientes)
-router.get("/clientes/:id",conseguirUnicoCliente)
-router.post("/clientes",crearCliente)
-router.put("/clientes/:id",modificarCliente)
-router.delete("/clientes/:id",eliminarCliente)
+router.get("/obtenertodo",conseguirClientes)
+router.get("/buscar/:id",conseguirUnicoCliente)
+router.post("/registrar",crearCliente)
+router.put("/modificar/:id",modificarCliente)
+router.delete("/eliminar/:id",eliminarCliente)
 
 export default router

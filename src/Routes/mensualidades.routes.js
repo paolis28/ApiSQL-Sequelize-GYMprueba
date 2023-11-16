@@ -4,10 +4,11 @@ import {conseguirMensualidades, conseguirUnicaMensualidad, crearMensualidad, mod
 
 const router=Router();
 
-router.get("/Mensualidad",conseguirMensualidades)
-router.get("/Mensualidad/:id",conseguirUnicaMensualidad)
-router.post("/Mensualidad",crearMensualidad)
-router.put("/Mensualidad/:id",modificarMensualidad)
-router.delete("/Mensualidad/:id",eliminarMensualidad)
+router.get("/obtenertodos",conseguirMensualidades);
+router.post("/registrar",crearMensualidad);
+router.put("/modificar/:id",modificarMensualidad);
+router.delete("/eliminar/:id",eliminarMensualidad);
+//prueba de consulta
+router.post("/buscar", conseguirUnicaMensualidad);
 
 export default router

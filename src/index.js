@@ -4,8 +4,8 @@ import {sequelize} from './Connection/conexion.js';
 async function main(){
     try{
         await sequelize.sync({force:false})
-        app.listen(3001)
-        console.log("Server is listen on port", 3001)
+        app.listen(9000)
+        console.log("Server is listen on port", 9000)
     }catch(error){
         console.log("Fallo la conexion a la base de datos", error)
     }

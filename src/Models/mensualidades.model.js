@@ -29,11 +29,11 @@ export const Mensualidades = sequelize.define('Mensualidades', {
 
 // La que funcione
 //opción 1
-Mensualidades.hasOne(Clientes,{          
-    foreignKey:"id_cliente",
-    sourceKey:"id_cliente",
-});
-Mensualidades.belongsTo(Clientes, {foreinKey:"id_cliente", targetId: "id_cliente"});
+// Mensualidades.hasOne(Clientes,{          
+//     foreignKey:"id_cliente",
+//     sourceKey:"id_cliente",
+// });
+// Mensualidades.belongsTo(Clientes, {foreinKey:"id_cliente", targetId: "id_cliente"});
 
 //Opción 2
 // Mensualidades.hasOne(Clientes);

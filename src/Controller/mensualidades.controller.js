@@ -1,4 +1,5 @@
 import { Mensualidades } from "../Models/mensualidades.model.js";
+import { Op } from 'sequelize';
 
 export const conseguirMensualidades = async (req,res) =>{
     try{
@@ -16,16 +17,20 @@ export const conseguirMensualidades = async (req,res) =>{
 }
 
 export const conseguirUnicaMensualidad = async (req,res)=>{
-    const id = req.params.id;
+    const { id, fecha } = req.body;
+    const estatus = "Adeudo";
 
     try {
-        const mensualidades = await Mensualidades.findOne({
+        const respuesta = await Mensualidades.findOne({
             where:{
-                id_mensualidades:id
+                id_cliente: id,
+                fechaPago: {
+                    [Op.lte]: fecha
+                },
+                estatus: estatus
             }
         });
-        res.json(mensualidades);
-        res.send("Mensualidad modificada");
+        res.json(respuesta);
     } catch (error) {
         res.status(500).json({ error: "Error al buscar la mensualidad" });
         console.log(error);
