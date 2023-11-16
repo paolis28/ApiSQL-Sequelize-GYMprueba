@@ -38,25 +38,24 @@ export const conseguirUnicaMensualidad = async (req,res)=>{
 }
 
 export const crearMensualidad = async (req,res)=>{
-    const {id_cliente,id_mensualidades}=req.body;
+    const { id_cliente, fechaPago, estatus}=req.body;
 
     try{
-        if(!id_mensualidades || !id_cliente){
+        if(!id_cliente || !fechaPago || !estatus){
             return res.status(400).json({error:'Todos los campos son obligatorios'})
         }
 
-    await Mensualidades.sync()
-
-    const mensualidades=await Mensualidades.create({
-        id_mensualidades:id_mensualidades,
-        id_cliente:id_cliente
+    const newMensualidades = new Mensualidades({
+        id_cliente:id_cliente,
+        fechaPago: fechaPago,
+        estatus: estatus
     });
 
-    await mensualidades.validate();
-    await mensualidades.save();
-
-    res.json(mensualidades);
-    res.send("Mensualidad registrada")
+    await newMensualidades.validate();
+    await newMensualidades.save();
+    res.json({
+        newMensualidades
+    })
 
     }catch(error){
         res.status(500).json({error:"Error al agregar mensualidad"});

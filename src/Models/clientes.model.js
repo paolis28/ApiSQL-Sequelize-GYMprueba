@@ -4,7 +4,8 @@ import { sequelize } from "../Connection/conexion.js";
 export const Clientes = sequelize.define('Clientes', {
     id_cliente: {
         type: DataTypes.INTEGER,
-        primaryKey: true
+        autoIncrement: true,
+        primaryKey: true,
     },
     nombre: {
         type: DataTypes.STRING,
@@ -31,5 +32,3 @@ export const Clientes = sequelize.define('Clientes', {
     timestamps: false,
 
 });
-
-

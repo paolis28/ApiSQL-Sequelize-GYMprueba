@@ -5,10 +5,13 @@ import { Clientes } from "./clientes.model.js";
 export const Mensualidades = sequelize.define('Mensualidades', {
     id_mensualidades: {
         type: DataTypes.INTEGER,
+        autoIncrement: true,
         primaryKey: true
     },
     id_cliente: {
         type: DataTypes.INTEGER,
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
         references: {
             model: Clientes,
             key: 'id_cliente'
@@ -26,14 +29,3 @@ export const Mensualidades = sequelize.define('Mensualidades', {
 {
     timestamps: false
 });
-
-// La que funcione
-//opción 1
-// Mensualidades.hasOne(Clientes,{          
-//     foreignKey:"id_cliente",
-//     sourceKey:"id_cliente",
-// });
-// Mensualidades.belongsTo(Clientes, {foreinKey:"id_cliente", targetId: "id_cliente"});
-
-//Opción 2
-// Mensualidades.hasOne(Clientes);

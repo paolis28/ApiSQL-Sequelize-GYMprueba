@@ -29,12 +29,12 @@ export const conseguirUnicoCliente = async (req,res) =>{
 }
 
 export const crearCliente = async (req, res) => {
-    const { id_cliente, nombre, apellidoPaterno, apellidoMaterno, numeroCelular, fechaInscripcion }=req.body;
+    const { nombre, apellidoPaterno, apellidoMaterno, celular, fecha } = req.body;
     
     const permitido = /^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ\s]+$/;
 
     try{
-        if(!nombre || !apellidoPaterno || !apellidoMaterno || !numeroCelular || !fechaInscripcion){
+        if(!nombre || !apellidoPaterno || !apellidoMaterno || !celular || !fecha){
             return res.status(400).json({error:'Todos los campos son obligatorios'})
         }
     
@@ -49,25 +49,18 @@ export const crearCliente = async (req, res) => {
         if(!permitido.test(apellidoMaterno)){
             return res.status(400).json({error:"Apellido Materno inválido, solo se aceptan acentos como caracteres especiales"})
     }
-    const parsedFechaInscripcion = new Date(fechaInscripcion);
     
-        const cliente = await Clientes.create({
-            id_cliente:id_cliente,
+        const newCliente = new Clientes({
             nombre: nombre,
             apellidoPaterno: apellidoPaterno,
             apellidoMaterno: apellidoMaterno,
-            numeroCelular: numeroCelular,
-            // fechaInscripcion: fechaInscripcion
-            fechaInscripcion: new Date(parsedFechaInscripcion).getTime()
-        });
-        const fechaFormateada = new Date(cliente.fechaInscripcion).toISOString().split('T')[0];
+            numeroCelular: celular,
+            fechaInscripcion: fecha
+        })
+        await newCliente.validate();
+        await newCliente.save();
         res.json({
-            id_cliente: cliente.id_cliente,
-            nombre: cliente.nombre,
-            apellidoPaterno: cliente.apellidoPaterno,
-            apellidoMaterno: cliente.apellidoMaterno,
-            numeroCelular: cliente.numeroCelular,
-            fechaInscripcion: fechaFormateada
+            newCliente
         });
     }catch(error){
         res.status(500).json({error: "Error al registrar cliente"});
