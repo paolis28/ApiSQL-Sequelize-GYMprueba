@@ -38,17 +38,21 @@ export const conseguirUnicaMensualidad = async (req,res)=>{
 }
 
 export const crearMensualidad = async (req,res)=>{
-    const { id_cliente, fechaPago, estatus}=req.body;
+    const { id_cliente, fecha} = req.body;
+    const id = parseInt(id_cliente)
 
     try{
-        if(!id_cliente || !fechaPago || !estatus){
+        if(!id_cliente || !fecha){
             return res.status(400).json({error:'Todos los campos son obligatorios'})
+        }
+        if(isNaN(id)){
+            return res.status(400).json({error:'id_cliente debe ser un número'})
         }
 
     const newMensualidades = new Mensualidades({
         id_cliente:id_cliente,
-        fechaPago: fechaPago,
-        estatus: estatus
+        fechaPago: fecha,
+        estatus: 'Adeudo'
     });
 
     await newMensualidades.validate();
