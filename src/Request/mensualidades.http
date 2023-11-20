@@ -33,5 +33,6 @@ Content-Type: application/json
 
 {
     "id": 1,
-    "fecha": "2023-11-15"
+    "fechaActual": "2023-11-20",
+    "fecha": "2023-12-20"
 }

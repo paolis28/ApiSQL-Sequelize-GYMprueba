@@ -38,7 +38,7 @@ export const conseguirUnicaMensualidad = async (req,res)=>{
 }
 
 export const crearMensualidad = async (req,res)=>{
-    const { id_cliente, fecha} = req.body;
+    const { id_cliente, fechaActual, fecha} = req.body;
     const id = parseInt(id_cliente)
 
     try{
@@ -51,8 +51,9 @@ export const crearMensualidad = async (req,res)=>{
 
     const newMensualidades = new Mensualidades({
         id_cliente:id_cliente,
+        fechaInicio: fechaActual,
         fechaPago: fecha,
-        estatus: 'Adeudo'
+        estatus: 'Vigente'
     });
 
     await newMensualidades.validate();
