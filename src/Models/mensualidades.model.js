@@ -17,12 +17,16 @@ export const Mensualidades = sequelize.define('Mensualidades', {
             key: 'id_cliente'
         }
     },
+    fechaInicio: {
+        type: DataTypes.DATEONLY,
+        required: true
+    },
     fechaPago: {
-        type: DataTypes.DATE,
+        type: DataTypes.DATEONLY,
         required: true
     },
     estatus:{
-        type:DataTypes.STRING,
+        type:DataTypes.STRING(7),
         required: true
     }
 },

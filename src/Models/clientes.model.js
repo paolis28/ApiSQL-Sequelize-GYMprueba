@@ -8,27 +8,26 @@ export const Clientes = sequelize.define('Clientes', {
         primaryKey: true,
     },
     nombre: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(50),
         required: true
     },
     apellidoPaterno: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(50),
         required: true
     },
     apellidoMaterno: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(50),
         required: true
     },
     numeroCelular: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(10),
         required: true
     },
     fechaInscripcion: {
-        type: DataTypes.DATE,
+        type: DataTypes.DATEONLY,
         required: true
     }
 },
 {
     timestamps: false,
-
 });
