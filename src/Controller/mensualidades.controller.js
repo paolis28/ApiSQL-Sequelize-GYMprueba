@@ -8,8 +8,7 @@ export const conseguirMensualidades = async (req,res) =>{
             ok:true,
             status:200,
             body:mensualidad
-        }) 
-        res.json(mensualidad) 
+        })
     }catch(error){
         res.status(500).json({error: "Error al buscar las mensualidad"});
         console.log(error);
@@ -18,9 +17,18 @@ export const conseguirMensualidades = async (req,res) =>{
 
 export const conseguirUnicaMensualidad = async (req,res)=>{
     const { id, fecha } = req.body;
-    const estatus = "Adeudo";
-
+    const idAux = parseInt(id);
+    const estatus = "Vigente";
     try {
+        if(!id || !fecha){
+            return res.status(400).json({error: "El id_cliente y la fecha son obligatorios"})
+        }
+        if(isNaN(idAux)){
+            return res.status(400).json({error: "El id debe ser un número"})
+        }
+        if(!estatus==="Vigente"){
+            return res.status(400).json({error: "El estatus es incorrecto"})
+        }
         const respuesta = await Mensualidades.findOne({
             where:{
                 id_cliente: id,
@@ -42,11 +50,11 @@ export const crearMensualidad = async (req,res)=>{
     const id = parseInt(id_cliente)
 
     try{
-        if(!id_cliente || !fecha){
-            return res.status(400).json({error:'Todos los campos son obligatorios'})
+        if(!id_cliente || !fechaActual || !fecha){
+            return res.status(400).json({error:'Todos los campos son obligatorios'});
         }
         if(isNaN(id)){
-            return res.status(400).json({error:'id_cliente debe ser un número'})
+            return res.status(400).json({error:'id_cliente debe ser un número'});
         }
 
     const newMensualidades = new Mensualidades({
@@ -68,25 +76,27 @@ export const crearMensualidad = async (req,res)=>{
     }
 }
 
-export const modificarMensualidad = async (req,res)=>{
-    const {id_cliente,id_mensualidades}=req.body;
+export const pagarMensualidad = async (req, res) => {
+    const { idMensualidad } = req.body;
+    const id = parseInt(idMensualidad);
+    const estatus = 'Pagado';
+  
+    try {
+      if (isNaN(id)) {
+        return res.status(400).json({ error: 'El id de la mensualidad debe ser un número' });
+      }
 
-    try{
-        const id=req.params.id;
-        const dataMensualidad=res.body;
-        const updateMensualidad=await Mensualidades.update({
-            id_mensualidades:id_mensualidades,
-            id_cliente:id_cliente
-        },{
-            where:{
-                id_mensualidades:id
-            }
-        })
-        res.send("Mensualidad Modificado")
-        res.json(updateMensualidad);
-    }catch(error){
-        res.status(500).json({error: "Error al modificar mensualidad"});
-        console.log(error);
+    const updateMensualidad = await Mensualidades.update({
+        estatus
+    },{
+        where:{
+            id_mensualidad: id,
+        },
+    })
+      res.status(200).json({ message: 'Mensualidad pagada' });
+    } catch (error) {
+      res.status(500).json({ error: 'Error al modificar mensualidad' });
+      console.log(error);
     }
 }
 

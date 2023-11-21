@@ -3,7 +3,7 @@ import { sequelize } from "../Connection/conexion.js";
 import { Clientes } from "./clientes.model.js"; 
 
 export const Mensualidades = sequelize.define('Mensualidades', {
-    id_mensualidades: {
+    id_mensualidad: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true
