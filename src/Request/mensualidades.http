@@ -6,11 +6,19 @@ Content-Type: application/json
 
 {
     "id_cliente": 1,
-    "fechaPago": "2023-11-16"
+    "fechaActual": "2023-11-21",
+    "fecha": "2023-11-16"
 }
 
 ###
 PUT http://localhost:9000/gimnasio/mensualidades/pagar HTTP/1.1
+Content-Type: application/json
+
+{
+    "idMensualidad": 1
+}
+###
+PUT http://localhost:9000/gimnasio/mensualidades/cambiarestatus HTTP/1.1
 Content-Type: application/json
 
 {

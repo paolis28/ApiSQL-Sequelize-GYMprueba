@@ -100,6 +100,30 @@ export const pagarMensualidad = async (req, res) => {
     }
 }
 
+export const cambiarEstatus = async (req, res) => {
+    const { idMensualidad } = req.body;
+    const id = parseInt(idMensualidad);
+    const estatus = 'Adeudo';
+  
+    try {
+      if (isNaN(id)) {
+        return res.status(400).json({ error: 'El id de la mensualidad debe ser un número' });
+      }
+
+    const updateMensualidad = await Mensualidades.update({
+        estatus
+    },{
+        where:{
+            id_mensualidad: id,
+        },
+    })
+      res.status(200).json({ message: 'Estatus cambiado a Adeudo' });
+    } catch (error) {
+      res.status(500).json({ error: 'Error al modificar mensualidad' });
+      console.log(error);
+    }
+}
+
 export const eliminarMensualidad = async (req,res) =>{
     const id=req.body.id_mensualidades;
 
