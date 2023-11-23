@@ -1,5 +1,4 @@
 import { Clientes } from '../Models/clientes.model.js';
-import { Mensualidades } from '../Models/mensualidades.model.js';
 
 export const conseguirClientes = async (req,res) =>{
     try{
@@ -48,7 +47,7 @@ export const crearCliente = async (req, res) => {
     
         if(!permitido.test(apellidoMaterno)){
             return res.status(400).json({error:"Apellido Materno inválido, solo se aceptan acentos como caracteres especiales"})
-    }
+        }
     
         const newCliente = new Clientes({
             nombre: nombre,
@@ -70,23 +69,40 @@ export const crearCliente = async (req, res) => {
 
 
 export const modificarCliente= async(req,res)=>{
-    const {nombre,apellidoPaterno,apellidoMaterno,numeroCelular,fechaInscripcion}=req.body;
-
+    const {id_cliente, nombre, apellidoPaterno, apellidoMaterno, celular }=req.body;
+    const id = parseInt(id_cliente);
+    const permitido = /^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ\s]+$/;
     try{
-        const id=req.params.id;
-        const dataCliente=res.body;
-        const updateCliente=await Clientes.update({
+        if(!id || !nombre || !apellidoPaterno || !apellidoMaterno || !celular){
+            return res.status(400).json({error:'Todos los campos son obligatorios'})
+        }
+        if (isNaN(id)) {
+            return res.status(400).json({error:"id inválido, el id debe ser un número"})
+        }
+        if(!permitido.test(nombre)){
+            return res.status(400).json({error:"Nombre inválido, solo se aceptan acentos como caracteres especiales"})
+        }
+    
+        if(!permitido.test(apellidoPaterno)){
+            return res.status(400).json({error:"Apellido Paterno inválido, solo se aceptan acentos como caracteres especiales"})
+        }
+    
+        if(!permitido.test(apellidoMaterno)){
+            return res.status(400).json({error:"Apellido Materno inválido, solo se aceptan acentos como caracteres especiales"})
+        }
+
+        const updateCliente = await Clientes.update({
             nombre:nombre,
             apellidoPaterno:apellidoPaterno,
             apellidoMaterno:apellidoMaterno,
-            numeroCelular:numeroCelular
+            numeroCelular:celular
         },{
             where:{
                 id_cliente:id
             }
         })
-        res.send("Cliente Modificado")
-        res.json(updateCliente);
+
+        res.json({updateCliente});
     }catch(error){
         res.status(500).json({error: "Error al modificar cliente"});
         console.log(error);
@@ -94,16 +110,22 @@ export const modificarCliente= async(req,res)=>{
 }
 
 export const eliminarCliente = async (req,res)=>{
-    const id=req.body.id_cliente;
-    const nombre=req.body.nombre;
-
+    const { id_cliente} = req.body;
+    const id = parseInt(id_cliente);
     try{
-        const cliente = await Clientes.destroy({
+        if (!id) {
+            return res.status(400).json({error:"El id no debe estar vacío"})
+        }
+        if (isNaN(id)) {
+            return res.status(400).json({error:"id inválido, el id debe ser un número"})
+        }
+        await Clientes.destroy({
             where:{
                 id_cliente:id
             }
-        });
-        res.send("Cliente Eliminado")
+        })
+        .then((data)=>res.json(data))
+        .catch((error)=>res.json ({message:error}));
     }catch(error){
         res.status(500).json({error: "Error al eliminar al cliente"});
         console.log(error);
