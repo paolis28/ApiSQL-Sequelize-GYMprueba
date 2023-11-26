@@ -3,8 +3,8 @@ POST  http://localhost:9000/gimnasio/administradores/registroadmin HTTP/1.1
 Content-Type: application/json
 
 {
-   "usuario": "admin",
-   "password": "admin@1234"
+   "usuario": "admin2",
+   "password": "admin2#12"
 }
 
 ###
@@ -12,6 +12,15 @@ POST  http://localhost:9000/gimnasio/administradores/loginadmin HTTP/1.1
 Content-Type: application/json
 
 {
-   "usuario": "admin",
-   "password": "admin@1234"
+   "usuario": "admin2",
+   "password": "4*F2ddBIDw"
+}
+
+###
+PUT  http://localhost:9000/gimnasio/administradores/actualizarpassword HTTP/1.1
+Content-Type: application/json
+
+{
+   "usuario": "admin3",
+   "password": "admin2@25"
 }
