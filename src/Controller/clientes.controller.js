@@ -1,32 +1,5 @@
 import { Clientes } from '../Models/clientes.model.js';
 
-export const conseguirClientes = async (req,res) =>{
-    try{
-        await Clientes.findAll()
-        .then((data)=>res.json(data))
-        .catch((error)=>res.json ({message:error}));
-    }catch(error){
-        res.status(500).json({error: "Error al buscar los clientes"});
-        console.log(error);
-    }
-}
-
-export const conseguirUnicoCliente = async (req,res) =>{
-    const id = req.params.id;
-
-    try {
-        const cliente = await Clientes.findOne({
-            where:{
-                id_cliente:id
-            }
-        });
-        res.json(cliente);
-    } catch (error) {
-        res.status(500).json({ error: "Error al buscar el cliente" });
-        console.log(error);
-    }
-}
-
 export const crearCliente = async (req, res) => {
     const { nombre, apellidoPaterno, apellidoMaterno, celular, fecha } = req.body;
     
@@ -67,6 +40,32 @@ export const crearCliente = async (req, res) => {
     }
 }
 
+export const conseguirClientes = async (req,res) =>{
+    try{
+        await Clientes.findAll()
+        .then((data)=>res.json(data))
+        .catch((error)=>res.json ({message:error}));
+    }catch(error){
+        res.status(500).json({error: "Error al buscar los clientes"});
+        console.log(error);
+    }
+}
+
+export const conseguirUnicoCliente = async (req,res) =>{
+    const id = req.params.id;
+
+    try {
+        const cliente = await Clientes.findOne({
+            where:{
+                id_cliente:id
+            }
+        });
+        res.json(cliente);
+    } catch (error) {
+        res.status(500).json({ error: "Error al buscar el cliente" });
+        console.log(error);
+    }
+}
 
 export const modificarCliente= async(req,res)=>{
     const {id_cliente, nombre, apellidoPaterno, apellidoMaterno, celular }=req.body;

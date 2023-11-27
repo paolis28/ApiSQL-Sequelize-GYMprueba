@@ -1,6 +1,37 @@
 import { Mensualidades } from "../Models/mensualidades.model.js";
 import { Op } from 'sequelize';
 
+export const crearMensualidad = async (req,res)=>{
+    const { id_cliente, fechaActual, fecha} = req.body;
+    const id = parseInt(id_cliente)
+
+    try{
+        if(!id_cliente || !fechaActual || !fecha){
+            return res.status(400).json({error:'Todos los campos son obligatorios'});
+        }
+        if(isNaN(id)){
+            return res.status(400).json({error:'id_cliente debe ser un número'});
+        }
+
+    const newMensualidades = new Mensualidades({
+        id_cliente:id_cliente,
+        fechaInicio: fechaActual,
+        fechaPago: fecha,
+        estatus: 'Vigente'
+    });
+
+    await newMensualidades.validate();
+    await newMensualidades.save();
+    res.json({
+        newMensualidades
+    })
+
+    }catch(error){
+        res.status(500).json({error:"Error al agregar mensualidad"});
+        console.log(error);
+    }
+}
+
 export const conseguirMensualidades = async (req,res) =>{
     try{
         const mensualidad = await Mensualidades.findAll()
@@ -45,36 +76,6 @@ export const conseguirUnicaMensualidad = async (req,res)=>{
     }
 }
 
-export const crearMensualidad = async (req,res)=>{
-    const { id_cliente, fechaActual, fecha} = req.body;
-    const id = parseInt(id_cliente)
-
-    try{
-        if(!id_cliente || !fechaActual || !fecha){
-            return res.status(400).json({error:'Todos los campos son obligatorios'});
-        }
-        if(isNaN(id)){
-            return res.status(400).json({error:'id_cliente debe ser un número'});
-        }
-
-    const newMensualidades = new Mensualidades({
-        id_cliente:id_cliente,
-        fechaInicio: fechaActual,
-        fechaPago: fecha,
-        estatus: 'Vigente'
-    });
-
-    await newMensualidades.validate();
-    await newMensualidades.save();
-    res.json({
-        newMensualidades
-    })
-
-    }catch(error){
-        res.status(500).json({error:"Error al agregar mensualidad"});
-        console.log(error);
-    }
-}
 
 export const pagarMensualidad = async (req, res) => {
     const { idMensualidad } = req.body;

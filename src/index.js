@@ -3,7 +3,7 @@ import {sequelize} from './Connection/conexion.js';
 
 async function main(){
     try{
-        await sequelize.sync({force:false})
+        await sequelize.sync()
         app.listen(9000)
         console.log("Server is listen on port", 9000)
     }catch(error){
