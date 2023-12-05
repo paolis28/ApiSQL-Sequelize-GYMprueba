@@ -1,14 +1,14 @@
 # CONSULTAS DE LA TABLA CLIENTE
 
 ###
-POST http://localhost:9000/gimnasio/clientes/registrar HTTP/1.1
+POST http://proyectogimnasio.cepgbf3d6ji2.us-east-1.rds.amazonaws.com:80/gimnasio/api/clientes/registrar HTTP/1.1
 Content-Type: application/json
 
 {
-   "nombre": "Luisin",
-   "apellidoPaterno": "Gutiérrez",
-   "apellidoMaterno": "Aguilar",
-   "celular": "9612326589",
+   "nombre": "Paola",
+   "apellidoPaterno": "Aguirre",
+   "apellidoMaterno":"Mayorga",
+   "celular": "9612502403",
    "fecha": "2023-12-21"
 }
 
